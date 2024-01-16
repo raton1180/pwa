@@ -10,6 +10,7 @@ import instance from '../axios/instance';
 import AddPost from '../components/AddPost';
 import backendPost from '../axios/backendPost';
 
+
 const Post = () => {
     const [posts, setPosts] = useState([])
     const [title, setTitle] = useState("")
@@ -17,6 +18,8 @@ const Post = () => {
     const [isUpdate, setIsUpdate] = useState(false)
     const [postData, setPostData] = useState(null)
     const [addPost, setAddPost] = useState(false)
+
+
     useEffect(() => {
         fetchPosts()
     }, [])
@@ -35,7 +38,7 @@ const Post = () => {
     )
 
     const handleSubmit = () => {
-        
+
         if (title !== "" && details !== "") {
             {
                 const data = {
