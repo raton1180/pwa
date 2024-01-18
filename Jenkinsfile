@@ -7,7 +7,7 @@ pipeline {
 
     environment{
         imageName = "raton1180/pwa-app"
-        registryCredentials = "raton1180"
+        registryCredential = "raton1180"
         dockerImage = ""
     }
 
