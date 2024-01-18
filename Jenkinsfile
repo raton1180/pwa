@@ -8,14 +8,7 @@ pipeline {
     }
 
     stages {
-        stage('Clone Repository') {
-            steps {
-                // Checkout the source code from the Git repository
-                script {
-                    git 'https://github.com/raton1180/pwa.git'
-                }
-            }
-        }
+   
         stage('Install Dependencies') {
             steps {
                 sh 'npm install'
@@ -39,4 +32,5 @@ pipeline {
             }
         }
     }
+
 }
