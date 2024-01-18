@@ -6,8 +6,8 @@ pipeline {
     }
 
     environment{
-        imageName = "pwa-app"
-        registryCredentials = "pwaapp"
+        imageName = "raton1180/pwa-app"
+        registryCredentials = "raton1180"
         dockerImage = ""
     }
 
@@ -35,7 +35,8 @@ pipeline {
         stage('Deploy Image') {
             steps {
                 script{
-                    docker.withRegistry("https://registry.hub.docker.com","dockerhub-creds"){
+                    /* groovylint-disable-next-line NestedBlockDepth */
+                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-creds') {
                         dockerImage.push("${e.v.BUILD_NUMBER}")
                     }
                 }
