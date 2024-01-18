@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    tools {
-        nodejs 'node'
-    }
-
     environment{
         imageName = "raton1180/pwa-app"
         registryCredential = "raton1180"
