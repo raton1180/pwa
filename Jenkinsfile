@@ -35,7 +35,7 @@ pipeline {
                 script {
                     /* groovylint-disable-next-line NestedBlockDepth */
                     docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-creds') {
-                        dockerImage.push("${e.v.BUILD_NUMBER}")
+                        dockerImage.push("${env.BUILD_NUMBER}")
                     }
                 }
             }
