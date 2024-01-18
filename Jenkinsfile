@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+    tools{
+        nodejs "node"
+    }
     stages {
         stage('Clone Repository') {
             steps {
@@ -15,7 +17,7 @@ pipeline {
             steps {
                 // Use Node.js container for building and installing dependencies
                 script {
-                    docker.image('node:14').inside('-v $PWD:/app') {
+                    docker.image('node').inside('-v $PWD:/app') {
                         sh 'cd /app && npm install'
                     }
                 }
@@ -26,7 +28,7 @@ pipeline {
             steps {
                 // Use Node.js container for building the React project
                 script {
-                    docker.image('node:14').inside('-v $PWD:/app') {
+                    docker.image('node').inside('-v $PWD:/app') {
                         sh 'cd /app && npm run build'
                     }
                 }
