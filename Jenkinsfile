@@ -1,8 +1,16 @@
 pipeline {
     agent any
-    tools{
-        nodejs "node"
+
+    tools {
+        nodejs 'node'
     }
+
+    environment{
+        imageName = "pwa-app"
+        registryCredentials = "pwaapp"
+        dockerImage = ""
+    }
+
     stages {
         stage('Clone Repository') {
             steps {
@@ -12,53 +20,26 @@ pipeline {
                 }
             }
         }
-
-        stage('Build and Install Dependencies') {
+        stage('Install Dependencies') {
             steps {
-                // Use Node.js container for building and installing dependencies
-                script {
-                    docker.image('node').inside('-v $PWD:/app') {
-                        sh 'cd /app && npm install'
+                sh 'npm install'
+            }
+        }
+        stage('Build Image') {
+            steps {
+                script{
+                    dockerImage = docker.build imageName
+                }
+            }
+        }
+        stage('Deploy Image') {
+            steps {
+                script{
+                    docker.withRegistry("https://registry.hub.docker.com","dockerhub-creds"){
+                        dockerImage.push("${e.v.BUILD_NUMBER}")
                     }
                 }
             }
-        }
-
-        stage('Build React Project') {
-            steps {
-                // Use Node.js container for building the React project
-                script {
-                    docker.image('node').inside('-v $PWD:/app') {
-                        sh 'cd /app && npm run build'
-                    }
-                }
-            }
-        }
-
-        stage('Docker Build and Run') {
-            steps {
-                // Build Docker image and run the React app
-                script {
-                    docker.build('react-app', '.')
-                    docker.run('-p 3000:3000 --name react-container react-app')
-                }
-            }
-        }
-
-        stage('Cleanup') {
-            steps {
-                // Remove Docker container
-                script {
-                    docker.image('react-app').remove()
-                }
-            }
-        }
-    }
-
-    post {
-        always {
-            // Clean up Docker images and containers
-            cleanWs()
         }
     }
 }

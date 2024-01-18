@@ -1,9 +1,13 @@
 FROM node:alpine
 
-COPY . .
+WORKDIR /app
+
+COPY package.json /app
 
 # Install project dependencies
 RUN npm install
+
+COPY . /app
 
 # Build the React project
 RUN npm run build
@@ -12,4 +16,4 @@ RUN npm run build
 EXPOSE 5000
 
 # Command to run the React app
-CMD ["npm", "start"]
+CMD ["npm","run", "dev"]
