@@ -26,7 +26,7 @@ pipeline {
         stage('Build Image') {
             steps {
                 script {
-                    dockerImage = docker.build("${imageName}") 
+                    sh 'docker build -t raton1180/pwa-app .'
                 }
             }
         }
