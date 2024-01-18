@@ -18,7 +18,7 @@ pipeline {
                 }
             }
         }
-        stage('Install Dependencies') { /*  */
+        stage('Install Dependencies') { 
             steps {
                 sh 'npm install'
             }
@@ -26,7 +26,7 @@ pipeline {
         stage('Build Image') {
             steps {
                 script {
-                    dockerImage = docker.build imageName
+                    dockerImage = docker.build("${imageName}") 
                 }
             }
         }
