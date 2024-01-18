@@ -3,7 +3,7 @@ pipeline {
 
     environment{
         imageName = "raton1180/pwa-app"
-        registryCredential = "raton1180"
+        registryCredential = "dockerhub-creds"
         dockerImage = ""
     }
 
