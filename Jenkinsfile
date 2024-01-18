@@ -4,13 +4,21 @@ pipeline {
         nodejs 'node'
     }
     environment {
+        PATH = "${tool 'node'}/bin:${env.PATH}"
         imageName = 'raton1180/pwa-app'
         registryCredential = 'dockerhub-creds'
         dockerImage = ''
     }
 
     stages {
-        stage('Install Dependencies') {
+        stage('Print Node.js Location') {
+            steps {
+                script {
+                    sh 'which node'
+                }
+            }
+        }
+        stage('Install Dependencies') { /*  */
             steps {
                 sh 'npm install'
             }
