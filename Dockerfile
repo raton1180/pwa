@@ -1,9 +1,6 @@
 FROM node:alpine
 
-WORKDIR /app
-
- #Clone the React project from the repository
-RUN git clone https://github.com/raton1180/pwa.git .
+COPY . .
 
 # Install project dependencies
 RUN npm install
@@ -12,7 +9,7 @@ RUN npm install
 RUN npm run build
 
 # Expose the port that the React app will run on
-EXPOSE 3000
+EXPOSE 5000
 
 # Command to run the React app
 CMD ["npm", "start"]
